@@ -1,0 +1,85 @@
+# Create a flow classifier
+# POST  /sfc/flow_classifiers
+#"create_flow_classifier": "rule:regular_user"
+
+# Update a flow classifier
+# PUT  /sfc/flow_classifiers/{id}
+#"update_flow_classifier": "rule:admin_or_owner"
+
+# Delete a flow classifier
+# DELETE  /sfc/flow_classifiers/{id}
+#"delete_flow_classifier": "rule:admin_or_owner"
+
+# Get flow classifiers
+# GET  /sfc/flow_classifiers
+# GET  /sfc/flow_classifiers/{id}
+#"get_flow_classifier": "rule:admin_or_owner"
+
+# Create a port chain
+# POST  /sfc/port_chains
+#"create_port_chain": "rule:regular_user"
+
+# Update a port chain
+# PUT  /sfc/port_chains/{id}
+#"update_port_chain": "rule:admin_or_owner"
+
+# Delete a port chain
+# DELETE  /sfc/port_chains/{id}
+#"delete_port_chain": "rule:admin_or_owner"
+
+# Get port chains
+# GET  /sfc/port_chains
+# GET  /sfc/port_chains/{id}
+#"get_port_chain": "rule:admin_or_owner"
+
+# Create a port pair group
+# POST  /sfc/port_pair_groups
+#"create_port_pair_group": "rule:regular_user"
+
+# Update a port pair group
+# PUT  /sfc/port_pair_groups/{id}
+#"update_port_pair_group": "rule:admin_or_owner"
+
+# Delete a port pair group
+# DELETE  /sfc/port_pair_groups/{id}
+#"delete_port_pair_group": "rule:admin_or_owner"
+
+# Get port pair groups
+# GET  /sfc/port_pair_groups
+# GET  /sfc/port_pair_groups/{id}
+#"get_port_pair_group": "rule:admin_or_owner"
+
+# Create a port pair
+# POST  /sfc/port_pairs
+#"create_port_pair": "rule:regular_user"
+
+# Update a port pair
+# PUT  /sfc/port_pairs/{id}
+#"update_port_pair": "rule:admin_or_owner"
+
+# Delete a port pair
+# DELETE  /sfc/port_pairs/{id}
+#"delete_port_pair": "rule:admin_or_owner"
+
+# Get port pairs
+# GET  /sfc/port_pairs
+# GET  /sfc/port_pairs/{id}
+#"get_port_pair": "rule:admin_or_owner"
+
+# Create a service graph
+# POST  /sfc/service_graphs
+#"create_service_graph": "rule:regular_user"
+
+# Update a service graph
+# PUT  /sfc/service_graphs/{id}
+#"update_service_graph": "rule:admin_or_owner"
+
+# Delete a service graph
+# DELETE  /sfc/service_graphs/{id}
+#"delete_service_graph": "rule:admin_or_owner"
+
+# Get service graphs
+# GET  /sfc/service_graphs
+# GET  /sfc/service_graphs/{id}
+#"get_service_graph": "rule:admin_or_owner"
+
