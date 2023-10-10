@@ -1,0 +1,66 @@
+// ConsoleApplication1.cpp : This file contains the 'main' function. Program execution begins and ends there.
+//
+
+#include <iostream>
+#include <stdio.h>
+#include "DWS_sdk.h"
+#include <mutex>
+
+void* FrameBuffers[3]; // 0 - depth Z16, 1 - IR Y8, 2 - RGB RGB8
+
+void* local_depth = new unsigned char[640 * 480 * 2];
+void* local_ir = new unsigned char[640 * 480 * 1];
+void* local_colour = new unsigned char[640 * 480 * 3];
+std::mutex mutex_display;
+DWS_Box boxes[DWS_MAX_NUM_OF_BOXES];
+
+
+void* _dim_callback(int frameId, int box_count, const DWS_Box* box_buffer);
+
+void* _callback(const void* depth_buffer, int d_w, int d_h, int d_bpp, const void* ir_buffer, int i_w, int i_h, int i_bpp, const void* colour_buffer, int c_w, int c_h, int c_bpp, int frameId)
+{
+	// ###############################
+	// #### CRITICAL ####
+	// COPY FRAMES TO LOCAL BUFFER!!!!
+	// ###############################
+	{
+		memcpy(local_depth, depth_buffer, (d_w * d_h * d_bpp));
+		memcpy(local_ir, ir_buffer, (i_w * i_h * i_bpp));
+		memcpy(local_colour, colour_buffer, (c_w * c_h * c_bpp));
+	}
+
+	return nullptr;
+}
+
+void* _status_callback(DWS_Severity severity, DWS_MessageCode code, const char*) {
+	return nullptr;
+
+}
+
+void* _dim_callback(int frameId, int box_count, const DWS_Box* box_buffer)
+{
+	std::cout << "[!] APP: " << box_count << " Boxes detected!" << std::endl;
+	for (int i = 0; i < box_count; i++)
+	{
+		const DWS_Box& box = (box_buffer[i]);
+		std::cout << "\t->" << i << ": Box ID: " << box.id;
+		std::cout << " Dimensions: " << box.height << " x " << box.length << " x " << box.width << ", confidence: " << box.confidence << std::endl;
+	}
+	return nullptr;
+}
+
+int main()
+{
+	int engineId(-1);
+
+	std::cout << "DWS sample code, sdk version: " << dws_version(engineId) << std::endl;
+	dws_create(DWS_Mode::STATIC_MODE, false, _callback, _status_callback, &boxes[0], engineId);
+	bool keep_alive = true;
+
+	dws_autoInit(engineId); //_init_callback
+	dws_start(engineId,_dim_callback);
+	while (keep_alive) {
+
+	}
+	return EXIT_SUCCESS;
+}
